@@ -239,6 +239,33 @@ ul,ol{list-style:none}
 .form-submit:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(139,21,32,.3)}
 .form-submit:active{transform:translateY(0)}
 .form-notice{text-align:center;margin-top:16px;font-size:11px;color:var(--text-xs);line-height:1.8}
+
+/* 개인정보 동의 */
+.privacy-wrap{grid-column:1/-1;margin-top:8px}
+.privacy-check-row{display:flex;align-items:flex-start;gap:10px;cursor:pointer;user-select:none}
+.privacy-check-row input[type=checkbox]{
+  width:18px;height:18px;flex-shrink:0;margin-top:1px;
+  accent-color:var(--red);cursor:pointer;
+}
+.privacy-check-label{font-size:13px;color:var(--text);line-height:1.6}
+.privacy-check-label strong{color:var(--red)}
+.privacy-toggle{
+  background:none;border:none;color:var(--red);font-size:12px;
+  font-weight:600;cursor:pointer;padding:0;margin-left:6px;
+  text-decoration:underline;font-family:inherit;
+  white-space:nowrap;
+}
+.privacy-box{
+  display:none;margin-top:12px;padding:16px 18px;
+  background:#FAF8F5;border:1px solid #E0D8CF;border-radius:var(--radius);
+  font-size:11px;color:var(--text-s);line-height:2;
+}
+.privacy-box.open{display:block}
+.privacy-box table{width:100%;border-collapse:collapse;margin-top:8px}
+.privacy-box th,.privacy-box td{padding:7px 10px;border:1px solid #E0D8CF;font-size:11px;text-align:left;vertical-align:top}
+.privacy-box th{background:#F0EBE3;font-weight:700;color:var(--text);white-space:nowrap;width:110px}
+.privacy-error{display:none;font-size:11px;color:var(--red);margin-top:6px;font-weight:600}
+
 .form-success{display:none;text-align:center;padding:40px 20px}
 .form-success-icon{font-size:56px;margin-bottom:16px}
 .form-success h3{font-size:22px;font-weight:700;margin-bottom:12px;color:var(--red)}
@@ -635,7 +662,31 @@ ul,ol{list-style:none}
             <label class="form-label" for="message">문의사항</label>
             <textarea class="form-textarea" id="message" name="message" placeholder="궁금한 점을 자유롭게 입력해 주세요."></textarea>
           </div>
+
+          <!-- 개인정보 수집·이용 동의 -->
+          <div class="privacy-wrap">
+            <label class="privacy-check-row">
+              <input type="checkbox" id="privacyAgree">
+              <span class="privacy-check-label">
+                <strong>[필수]</strong> 개인정보 수집·이용에 동의합니다.
+                <button type="button" class="privacy-toggle" id="privacyToggle">내용 보기 ▾</button>
+              </span>
+            </label>
+            <p class="privacy-error" id="privacyError">개인정보 수집·이용에 동의해 주세요.</p>
+
+            <div class="privacy-box" id="privacyBox">
+              <strong>개인정보 수집·이용 안내</strong>
+              <table>
+                <tr><th>수집 항목</th><td>성명, 연락처, 관심 타입, 거주지역, 문의사항</td></tr>
+                <tr><th>수집 목적</th><td>이대역 마포 프론티어 분양 상담 및 안내 서비스 제공</td></tr>
+                <tr><th>보유 기간</th><td>수집일로부터 1년 (목적 달성 또는 동의 철회 시 즉시 파기)</td></tr>
+                <tr><th>제3자 제공</th><td>제공하지 않음</td></tr>
+              </table>
+              <p style="margin-top:10px;color:#999">※ 위 동의를 거부할 권리가 있으나, 거부 시 상담 서비스 제공이 어렵습니다.</p>
+            </div>
+          </div>
         </div>
+
         <div class="form-submit-wrap">
           <button type="submit" class="form-submit" id="submitBtn">관심 등록 신청하기</button>
         </div>
@@ -1042,6 +1093,18 @@ document.querySelectorAll('.plan-tab').forEach(tab => {
   });
 });
 
+/* ── Privacy toggle ── */
+document.getElementById('privacyToggle')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const box = document.getElementById('privacyBox');
+  const btn = document.getElementById('privacyToggle');
+  const open = box.classList.toggle('open');
+  btn.textContent = open ? '내용 닫기 ▴' : '내용 보기 ▾';
+});
+document.getElementById('privacyAgree')?.addEventListener('change', () => {
+  document.getElementById('privacyError').style.display = 'none';
+});
+
 /* ── Contact form ── */
 const form = document.getElementById('contactForm');
 const formBox = document.getElementById('formBox');
@@ -1052,8 +1115,16 @@ form?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = document.getElementById('from_name').value.trim();
   const phone = document.getElementById('phone').value.trim();
+  const agreed = document.getElementById('privacyAgree').checked;
+
   if (!name || !phone) {
     alert('성함과 연락처는 필수 입력 항목입니다.');
+    return;
+  }
+  if (!agreed) {
+    const errEl = document.getElementById('privacyError');
+    errEl.style.display = 'block';
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
   submitBtn.disabled = true;
