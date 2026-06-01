@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이대역 마포 프론티어 — FRONTIER</title>
+<meta name="description" content="이대역 역세권 장기일반민간임대주택 · 총 647세대 · 청약통장 불필요 · 세금혜택">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   DESIGN TOKENS
+   ============================================= */
+:root {
+  --red:       #8B1520;
+  --red-dark:  #5E0D16;
+  --red-light: #C4373F;
+  --beige:     #EAE4D8;
+  --beige-d:   #D8CFBF;
+  --tan:       #C4A882;
+  --tan-d:     #9A8060;
+  --white:     #FFFFFF;
+  --dark:      #1A1A1A;
+  --dark2:     #242424;
+  --gray:      #F5F3EF;
+  --text:      #333333;
+  --text-s:    #666666;
+  --text-xs:   #999999;
+  --radius:    4px;
+  --transition: .3s cubic-bezier(.4,0,.2,1);
+}
+
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+ul,ol{list-style:none}
+
+/* =============================================
+   TYPOGRAPHY HELPERS
+   ============================================= */
+.section-eyebrow{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:12px;display:block}
+.section-title{font-size:clamp(24px,4vw,38px);font-weight:700;line-height:1.3;margin-bottom:16px}
+.section-desc{font-size:14px;color:var(--text-s);line-height:2;margin-bottom:48px}
+.sec{padding:100px 0}
+.container{max-width:1160px;margin:0 auto;padding:0 32px}
+.container-wide{max-width:1400px;margin:0 auto;padding:0 32px}
+
+/* =============================================
+   HEADER
+   ============================================= */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  transition:var(--transition);
+}
+.header.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.header-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;padding:0 40px;max-width:1400px;margin:0 auto;
+}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{
+  width:40px;height:40px;background:var(--red);
+  clip-path:polygon(0 0,90% 0,100% 10%,100% 100%,0 100%);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.logo-icon svg{width:22px;height:22px;fill:#fff}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-en{font-size:15px;font-weight:800;letter-spacing:3px;color:var(--dark)}
+.logo-ko{font-size:9px;letter-spacing:2px;color:var(--red);font-weight:500}
+.logo-station{font-size:9px;background:var(--red);color:#fff;padding:1px 5px;border-radius:2px;letter-spacing:1px;margin-right:2px}
+
+.gnav{display:flex;gap:32px;align-items:center}
+.gnav a{font-size:13px;font-weight:500;color:var(--text-s);letter-spacing:.5px;position:relative;padding-bottom:2px}
+.gnav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--red);transition:width .25s}
+.gnav a:hover{color:var(--red)}
+.gnav a:hover::after{width:100%}
+.gnav-cta{
+  background:var(--red);color:#fff!important;
+  padding:9px 20px;border-radius:var(--radius);
+  font-size:13px!important;font-weight:600!important;
+  letter-spacing:.5px;transition:background var(--transition);
+}
+.gnav-cta:hover{background:var(--red-dark)!important}
+.gnav-cta::after{display:none!important}
+.mobile-menu-btn{display:none;flex-direction:column;gap:5px;padding:4px}
+.mobile-menu-btn span{width:22px;height:2px;background:var(--dark);border-radius:2px;transition:var(--transition)}
+
+/* =============================================
+   MOBILE NAV DRAWER
+   ============================================= */
+.mobile-nav{
+  position:fixed;top:0;right:-100%;width:280px;height:100vh;
+  background:#fff;z-index:910;padding:80px 32px 40px;
+  box-shadow:-4px 0 30px rgba(0,0,0,.12);transition:right .35s ease;
+  display:flex;flex-direction:column;gap:0;
+}
+.mobile-nav.open{right:0}
+.mobile-nav-close{position:absolute;top:20px;right:20px;font-size:22px;color:var(--text-s);background:none;border:none;cursor:pointer}
+.mobile-nav a{display:block;padding:16px 0;font-size:15px;font-weight:500;color:var(--text);border-bottom:1px solid #f0f0f0}
+.mobile-nav a:last-child{border-bottom:none;margin-top:12px;background:var(--red);color:#fff;text-align:center;padding:14px;border-radius:var(--radius)}
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:905;opacity:0;pointer-events:none;transition:opacity .3s}
+.nav-overlay.show{opacity:1;pointer-events:auto}
+
+/* =============================================
+   HERO
+   ============================================= */
+.hero{
+  position:relative;height:100vh;min-height:640px;max-height:960px;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:var(--dark);
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('assets/images/p4_Image47_w889_h826.jpg') center/cover no-repeat;
+  opacity:.75;
+  animation:heroZoom 14s ease-in-out infinite alternate;
+}
+@keyframes heroZoom{from{transform:scale(1.06)}to{transform:scale(1.0)}}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,.1) 40%, rgba(0,0,0,.65) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;padding:0 24px;
+  color:#fff;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.2);border-radius:24px;
+  padding:6px 18px;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.85);
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp .8s .3s forwards;
+}
+.hero-badge-dot{width:6px;height:6px;background:var(--red-light);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-eyebrow{
+  font-size:11px;letter-spacing:8px;color:rgba(255,255,255,.6);
+  text-transform:uppercase;margin-bottom:18px;display:block;
+  opacity:0;animation:fadeUp .8s .5s forwards;
+}
+.hero-title{
+  font-size:clamp(32px,6vw,74px);font-weight:800;line-height:1.15;
+  letter-spacing:-1px;margin-bottom:12px;
+  opacity:0;animation:fadeUp .8s .7s forwards;
+}
+.hero-title em{display:block;font-style:normal;color:var(--tan);font-size:.6em;font-weight:300;letter-spacing:6px;margin-bottom:4px}
+.hero-sub{
+  font-size:clamp(13px,1.6vw,16px);color:rgba(255,255,255,.55);
+  letter-spacing:2px;margin-bottom:52px;
+  opacity:0;animation:fadeUp .8s .9s forwards;
+}
+.hero-tags{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:56px;
+  opacity:0;animation:fadeUp .8s 1.1s forwards;
+}
+.hero-tag{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  padding:6px 14px;border-radius:20px;font-size:12px;color:rgba(255,255,255,.8);
+  letter-spacing:.5px;
+}
+.hero-cta-row{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s 1.3s forwards;
+}
+.hero-btn{
+  padding:15px 36px;border-radius:var(--radius);font-size:14px;font-weight:700;
+  letter-spacing:.5px;transition:all var(--transition);cursor:pointer;
+}
+.hero-btn-primary{background:var(--red);color:#fff;border:2px solid var(--red)}
+.hero-btn-primary:hover{background:var(--red-dark);border-color:var(--red-dark);transform:translateY(-2px)}
+.hero-btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4)}
+.hero-btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.hero-scroll{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;animation:fadeUp .8s 1.6s forwards;
+}
+.hero-scroll-line{width:1px;height:56px;background:linear-gradient(to bottom,rgba(255,255,255,.6),transparent);animation:scrollAnim 2.4s ease-in-out infinite}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}49%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hero-scroll-txt{font-size:9px;letter-spacing:4px;color:rgba(255,255,255,.35);text-transform:uppercase}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* =============================================
+   NOTICE BAR
+   ============================================= */
+.notice-bar{
+  background:var(--red);color:#fff;
+  padding:12px 32px;text-align:center;
+  font-size:12px;letter-spacing:1px;line-height:1.8;
+}
+.notice-bar strong{font-weight:700}
+
+/* =============================================
+   INTEREST FORM
+   ============================================= */
+.form-section{background:var(--beige);padding:80px 0}
+.form-inner{
+  max-width:780px;margin:0 auto;padding:0 32px;
+}
+.form-header{text-align:center;margin-bottom:48px}
+.form-header .section-eyebrow{justify-content:center;display:flex;gap:8px;align-items:center}
+.form-header .section-eyebrow::before,.form-header .section-eyebrow::after{content:'';flex:1;height:1px;background:rgba(139,21,32,.2)}
+.form-box{
+  background:#fff;border-radius:8px;padding:48px 52px;
+  box-shadow:0 8px 40px rgba(0,0,0,.08);
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:600;color:var(--text);letter-spacing:.5px}
+.form-label span{color:var(--red);margin-left:2px}
+.form-input,.form-select,.form-textarea{
+  width:100%;padding:12px 16px;border:1.5px solid #E0D8CF;border-radius:var(--radius);
+  font-family:inherit;font-size:14px;color:var(--text);background:#fff;
+  transition:border-color var(--transition);outline:none;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--red)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-textarea{resize:vertical;min-height:96px;line-height:1.7}
+.form-submit-wrap{text-align:center;margin-top:32px}
+.form-submit{
+  width:100%;max-width:320px;padding:16px;
+  background:var(--red);color:#fff;border:none;border-radius:var(--radius);
+  font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer;
+  transition:all var(--transition);
+}
+.form-submit:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(139,21,32,.3)}
+.form-submit:active{transform:translateY(0)}
+.form-notice{text-align:center;margin-top:16px;font-size:11px;color:var(--text-xs);line-height:1.8}
+.form-success{display:none;text-align:center;padding:40px 20px}
+.form-success-icon{font-size:56px;margin-bottom:16px}
+.form-success h3{font-size:22px;font-weight:700;margin-bottom:12px;color:var(--red)}
+.form-success p{font-size:14px;color:var(--text-s);line-height:1.8}
+
+/* =============================================
+   OVERVIEW (사업개요)
+   ============================================= */
+.overview-section{background:#fff}
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.overview-img-wrap{position:relative}
+.overview-img{
+  width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius);
+}
+.overview-img-accent{
+  position:absolute;bottom:-14px;right:-14px;
+  width:72%;height:72%;border:2px solid rgba(139,21,32,.18);border-radius:var(--radius);
+  pointer-events:none;z-index:-1;
+}
+.overview-label{
+  position:absolute;top:20px;left:20px;
+  background:var(--red);color:#fff;padding:6px 14px;
+  font-size:11px;font-weight:700;letter-spacing:2px;border-radius:2px;
+}
+.info-table{width:100%;border-collapse:collapse}
+.info-table tr{border-bottom:1px solid #F0EBE3}
+.info-table tr:last-child{border-bottom:none}
+.info-table th{
+  padding:15px 0;font-size:11px;font-weight:700;color:var(--red);
+  letter-spacing:1px;width:120px;vertical-align:top;text-align:left;
+  white-space:nowrap;
+}
+.info-table td{
+  padding:15px 0 15px 16px;font-size:13px;color:var(--text);line-height:1.8;
+}
+.info-table td strong{color:var(--red)}
+.benefit-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px}
+.benefit-card{
+  background:var(--beige);padding:22px 20px;border-radius:var(--radius);text-align:center;
+  border-top:3px solid var(--red);
+}
+.benefit-card-icon{font-size:28px;margin-bottom:10px}
+.benefit-card-title{font-size:12px;font-weight:700;color:var(--red);margin-bottom:6px;letter-spacing:.5px}
+.benefit-card-desc{font-size:11px;color:var(--text-s);line-height:1.8}
+
+/* =============================================
+   UNIT COMPOSITION (세대 구성)
+   ============================================= */
+.unit-comp-section{background:var(--dark);color:#fff}
+.unit-comp-section .section-eyebrow{color:var(--tan)}
+.unit-comp-section .section-title{color:#fff}
+.unit-comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);margin-top:48px}
+.comp-item{
+  background:var(--dark2);padding:40px 28px;text-align:center;
+  transition:background var(--transition);
+}
+.comp-item:hover{background:#2e2e2e}
+.comp-type{font-size:13px;font-weight:700;color:var(--tan);letter-spacing:2px;margin-bottom:14px}
+.comp-sqm{font-size:clamp(28px,4vw,48px);font-weight:900;line-height:1}
+.comp-sqm span{font-size:.45em;font-weight:400;color:rgba(255,255,255,.4)}
+.comp-divider{width:32px;height:1px;background:rgba(255,255,255,.1);margin:16px auto}
+.comp-supply{font-size:12px;color:rgba(255,255,255,.4);line-height:1.9}
+.comp-count{font-size:clamp(32px,4vw,52px);font-weight:900;color:#fff;line-height:1;margin-top:8px}
+.comp-count span{font-size:.45em;font-weight:400;color:rgba(255,255,255,.35)}
+.comp-total-row{
+  grid-column:1/-1;background:var(--red);padding:24px 28px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.comp-total-label{font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.7);text-transform:uppercase}
+.comp-total-val{font-size:clamp(22px,3vw,32px);font-weight:900;color:#fff}
+.comp-total-val span{font-size:.5em;font-weight:400;color:rgba(255,255,255,.6)}
+
+/* =============================================
+   LOCATION — 광역입지
+   ============================================= */
+.location-section{background:var(--gray)}
+.loc-img-wrap{
+  width:100%;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.1);margin-bottom:40px;
+}
+.loc-img-wrap img{width:100%;object-fit:cover}
+.loc-card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.loc-card{
+  background:#fff;border-radius:var(--radius);padding:28px 20px;text-align:center;
+  border:1px solid #EEE8E0;transition:all var(--transition);
+}
+.loc-card:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 8px 24px rgba(139,21,32,.1)}
+.loc-card-num{font-size:clamp(22px,3vw,36px);font-weight:900;color:var(--red);line-height:1;margin-bottom:6px}
+.loc-card-unit{font-size:11px;color:var(--text-xs);letter-spacing:1px}
+.loc-card-title{font-size:13px;font-weight:700;color:var(--text);margin-top:10px;margin-bottom:6px}
+.loc-card-desc{font-size:11px;color:var(--text-s);line-height:1.8}
+.transport-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.t-tag{
+  padding:7px 16px;border-radius:20px;font-size:12px;font-weight:600;
+  letter-spacing:.5px;
+}
+.t-tag.subway{background:#0052A4;color:#fff}
+.t-tag.subway.line2{background:#008B3A}
+.t-tag.subway.line5{background:#8B5CE6}
+.t-tag.bus{background:#E8A000;color:#fff}
+.t-tag.future{background:var(--red);color:#fff}
+
+/* =============================================
+   LOCATION — 세부입지
+   ============================================= */
+.detail-loc-section{background:#fff}
+.detail-loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.detail-loc-img{width:100%;border-radius:var(--radius);box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.detail-loc-list{display:flex;flex-direction:column;gap:0}
+.detail-loc-item{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:20px 0;border-bottom:1px solid #F0EBE3;
+}
+.detail-loc-item:last-child{border-bottom:none}
+.detail-loc-icon{
+  width:44px;height:44px;background:var(--beige);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:20px;
+}
+.detail-loc-text{}
+.detail-loc-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.detail-loc-desc{font-size:12px;color:var(--text-s);line-height:1.8}
+.detail-loc-badge{
+  display:inline-block;background:var(--red);color:#fff;
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;
+  letter-spacing:1px;margin-bottom:4px;
+}
+
+/* =============================================
+   COMPLEX MAP — 단지배치도
+   ============================================= */
+.complex-section{background:var(--beige)}
+.complex-img-wrap{
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.12);
+}
+.complex-img-wrap img{width:100%;display:block}
+
+/* =============================================
+   FLOOR PLANS — 단위세대 평면도
+   ============================================= */
+.plan-section{background:#fff}
+.plan-tabs{
+  display:flex;gap:0;border-bottom:2px solid #EEE8E0;
+  margin-bottom:52px;
+}
+.plan-tab{
+  padding:14px 32px;font-size:13px;font-weight:600;cursor:pointer;
+  color:var(--text-xs);border-bottom:2px solid transparent;margin-bottom:-2px;
+  transition:all .2s;white-space:nowrap;letter-spacing:.5px;
+  background:none;border-left:none;border-right:none;border-top:none;
+  font-family:inherit;
+}
+.plan-tab.active{color:var(--red);border-bottom-color:var(--red)}
+.plan-tab:hover{color:var(--red)}
+.plan-panel{display:none}
+.plan-panel.active{display:block}
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.plan-img-box{
+  background:var(--gray);border-radius:var(--radius);overflow:hidden;
+  border:1px solid #EEE8E0;
+}
+.plan-img-box img{width:100%;display:block;object-fit:contain;padding:16px}
+.plan-type-badge{
+  display:inline-block;background:var(--red);color:#fff;
+  font-size:11px;font-weight:700;padding:4px 12px;border-radius:2px;
+  letter-spacing:2px;margin-bottom:16px;
+}
+.plan-type-name{font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--dark);line-height:1;margin-bottom:4px}
+.plan-type-eng{font-size:12px;letter-spacing:4px;color:var(--text-xs);margin-bottom:36px}
+.plan-spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#EEE8E0;border-radius:var(--radius);overflow:hidden;margin-bottom:36px}
+.spec-box{background:#fff;padding:22px 20px}
+.spec-box-label{font-size:10px;letter-spacing:2px;color:var(--red);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.spec-box-val{font-size:18px;font-weight:800;color:var(--dark)}
+.spec-box-val span{font-size:13px;font-weight:400;color:var(--text-xs)}
+.plan-supply-info{background:var(--beige);border-radius:var(--radius);padding:20px 24px;font-size:13px;color:var(--text-s);line-height:2}
+.plan-supply-info strong{color:var(--red);font-weight:700}
+
+/* =============================================
+   ADVANTAGES (혜택)
+   ============================================= */
+.adv-section{background:var(--dark);color:#fff;overflow:hidden;position:relative}
+.adv-section::before{
+  content:'FRONTIER';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:clamp(80px,15vw,200px);font-weight:900;letter-spacing:0px;
+  color:rgba(255,255,255,.025);white-space:nowrap;pointer-events:none;
+}
+.adv-section .section-eyebrow{color:var(--tan)}
+.adv-section .section-title{color:#fff}
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.adv-card{
+  border:1px solid rgba(255,255,255,.06);padding:36px 28px;
+  border-radius:var(--radius);transition:all var(--transition);
+  position:relative;overflow:hidden;
+}
+.adv-card::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:0;
+  background:var(--red);transition:height var(--transition);
+}
+.adv-card:hover{border-color:rgba(139,21,32,.4);background:rgba(139,21,32,.04)}
+.adv-card:hover::before{height:100%}
+.adv-num{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.2);font-weight:700;margin-bottom:20px}
+.adv-title{font-size:17px;font-weight:700;margin-bottom:12px;color:#fff}
+.adv-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:2}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.footer{background:#111;color:rgba(255,255,255,.4);padding:48px 0 120px}
+.footer-inner{max-width:1160px;margin:0 auto;padding:0 32px}
+.footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.06)}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.footer-logo-icon{width:36px;height:36px;background:var(--red);clip-path:polygon(0 0,90% 0,100% 10%,100% 100%,0 100%);display:flex;align-items:center;justify-content:center}
+.footer-logo-icon svg{width:18px;height:18px;fill:#fff}
+.footer-logo-en{font-size:13px;font-weight:800;letter-spacing:3px;color:rgba(255,255,255,.7)}
+.footer-desc{font-size:11px;line-height:1.9;max-width:360px}
+.footer-contact div{font-size:12px;margin-bottom:6px}
+.footer-contact strong{color:rgba(255,255,255,.65);font-size:14px}
+.footer-bottom{font-size:11px;letter-spacing:.3px}
+.footer-disclaimer{font-size:10px;line-height:1.9;margin-bottom:16px;color:rgba(255,255,255,.25)}
+
+/* =============================================
+   MOBILE BOTTOM CTA
+   ============================================= */
+.mobile-cta-bar{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:800;
+  display:grid;grid-template-columns:1fr 1fr;height:56px;
+}
+.mobile-cta-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-size:14px;font-weight:700;letter-spacing:.5px;
+  cursor:pointer;border:none;text-decoration:none;
+  font-family:inherit;
+}
+.mobile-cta-btn.sms{background:var(--dark2);color:#fff}
+.mobile-cta-btn.tel{background:var(--red);color:#fff}
+.mobile-cta-btn svg{width:18px;height:18px;fill:currentColor}
+
+/* =============================================
+   SCROLL ANIMATION
+   ============================================= */
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media(max-width:960px){
+  .gnav{display:none}
+  .mobile-menu-btn{display:flex}
+  .overview-grid,.detail-loc-grid,.plan-grid,.unit-comp-grid{grid-template-columns:1fr}
+  .benefit-cards{grid-template-columns:1fr 1fr}
+  .loc-card-grid{grid-template-columns:1fr 1fr}
+  .adv-grid{grid-template-columns:1fr 1fr}
+  .overview-img-accent{display:none}
+  .sec{padding:72px 0}
+  .form-box{padding:32px 28px}
+  .form-grid{grid-template-columns:1fr}
+  .plan-spec-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .container,.container-wide{padding:0 20px}
+  .header-inner{padding:0 20px}
+  .hero-title{font-size:clamp(26px,9vw,48px)}
+  .benefit-cards{grid-template-columns:1fr}
+  .loc-card-grid{grid-template-columns:1fr 1fr}
+  .adv-grid{grid-template-columns:1fr}
+  .unit-comp-grid{grid-template-columns:1fr}
+  .comp-total-row{flex-direction:column;text-align:center}
+  .plan-tabs{overflow-x:auto}
+  .sec{padding:56px 0}
+  .form-box{padding:28px 20px}
+  .footer{padding-bottom:80px}
+}
+
+/* Hide desktop footer padding when mobile CTA shown */
+@media(max-width:768px){
+  .mobile-cta-bar{display:grid}
+  .footer{padding-bottom:80px}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="이대역 마포 프론티어 홈">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L4 8v14h5v-7h6v7h5V8L12 2z"/><path d="M12 2l2 3h-4l2-3z" opacity=".6"/></svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-en">FRONTIER</span>
+        <span class="logo-ko"><span class="logo-station">이대역</span> 마포 프론티어</span>
+      </div>
+    </a>
+    <nav class="gnav" aria-label="주 메뉴">
+      <a href="#overview">사업개요</a>
+      <a href="#location">광역입지</a>
+      <a href="#detail-location">세부입지</a>
+      <a href="#complex">단지배치도</a>
+      <a href="#plans">단위세대</a>
+      <a href="#register" class="gnav-cta">관심등록</a>
+    </nav>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기">✕</button>
+  <a href="#overview" class="mobile-nav-link">사업개요</a>
+  <a href="#location" class="mobile-nav-link">광역입지</a>
+  <a href="#detail-location" class="mobile-nav-link">세부입지</a>
+  <a href="#complex" class="mobile-nav-link">단지배치도</a>
+  <a href="#plans" class="mobile-nav-link">단위세대 평면도</a>
+  <a href="#register" class="mobile-nav-link">관심등록 하기</a>
+</div>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>이대역 역세권 장기일반민간임대주택</div>
+    <em class="hero-eyebrow">마포구 대흥동 · 서울특별시</em>
+    <h1 class="hero-title">마포 프론티어<em>FRONTIER</em></h1>
+    <p class="hero-sub">서울 핵심 역세권의 새로운 주거 기준</p>
+    <div class="hero-tags">
+      <span class="hero-tag">총 647세대</span>
+      <span class="hero-tag">청약통장 불필요</span>
+      <span class="hero-tag">다주택자 가능</span>
+      <span class="hero-tag">세금혜택 3無</span>
+      <span class="hero-tag">10년 임대</span>
+    </div>
+    <div class="hero-cta-row">
+      <a href="#register" class="hero-btn hero-btn-primary">관심등록 하기</a>
+      <a href="#overview" class="hero-btn hero-btn-outline">사업개요 보기</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="hero-scroll-line"></div><span class="hero-scroll-txt">Scroll</span></div>
+</section>
+
+<!-- NOTICE BAR -->
+<div class="notice-bar">
+  <strong>주택 홍보관 운영 안내</strong> · 방문 상담 예약 및 문의 <strong>1666-9032</strong> · 평일·주말 10:00 ~ 18:00
+</div>
+
+<!-- ==================== INTEREST FORM ==================== -->
+<section class="form-section" id="register">
+  <div class="form-inner">
+    <div class="form-header fade-in">
+      <span class="section-eyebrow">INTEREST REGISTRATION</span>
+      <h2 class="section-title">관심 등록</h2>
+      <p class="section-desc" style="margin-bottom:0">관심 등록 시 사전 혜택 및 최신 분양 정보를 우선 안내해 드립니다.</p>
+    </div>
+    <div class="form-box fade-in" id="formBox">
+      <form id="contactForm" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="from_name">성함 <span>*</span></label>
+            <input class="form-input" type="text" id="from_name" name="from_name" placeholder="홍길동" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">연락처 <span>*</span></label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="010-0000-0000" autocomplete="tel" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="unit_type">관심 타입</label>
+            <select class="form-select" id="unit_type" name="unit_type">
+              <option value="미선택">타입 선택</option>
+              <option>49㎡ (전용 49.39㎡)</option>
+              <option>59㎡ (전용 59.95㎡)</option>
+              <option>74㎡ (전용 74.94㎡)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="region">거주지역</label>
+            <select class="form-select" id="region" name="region">
+              <option value="미선택">지역 선택</option>
+              <option>서울 마포구</option>
+              <option>서울 서대문구</option>
+              <option>서울 은평구</option>
+              <option>서울 기타</option>
+              <option>경기도</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="message">문의사항</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="궁금한 점을 자유롭게 입력해 주세요."></textarea>
+          </div>
+        </div>
+        <div class="form-submit-wrap">
+          <button type="submit" class="form-submit" id="submitBtn">관심 등록 신청하기</button>
+        </div>
+        <p class="form-notice">수집된 개인정보는 상담 안내 목적으로만 사용되며, 관련 법령에 따라 보호됩니다.</p>
+      </form>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="form-success-icon">✅</div>
+      <h3>관심 등록이 완료되었습니다!</h3>
+      <p>빠른 시간 내에 담당자가 연락드리겠습니다.<br>추가 문의사항은 <strong>1666-9032</strong>로 연락 주세요.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 사업개요 ==================== -->
+<section class="sec overview-section" id="overview">
+  <div class="container">
+    <div class="overview-grid">
+      <div class="overview-img-wrap fade-in">
+        <img src="assets/images/조감도.jpg" alt="이대역 마포 프론티어 조감도" class="overview-img" loading="lazy">
+        <div class="overview-img-accent"></div>
+        <span class="overview-label">MAPO FRONTIER</span>
+      </div>
+      <div class="fade-in">
+        <span class="section-eyebrow">BUSINESS OVERVIEW</span>
+        <h2 class="section-title">사업 개요</h2>
+        <table class="info-table">
+          <tbody>
+            <tr>
+              <th>사업명</th>
+              <td><strong>이대역 마포 프론티어</strong></td>
+            </tr>
+            <tr>
+              <th>위치</th>
+              <td>서울특별시 마포구 대흥동 일원<br><small style="color:#999">이대역 역세권</small></td>
+            </tr>
+            <tr>
+              <th>사업종류</th>
+              <td>장기일반민간임대주택<br><small style="color:#999">민간임대주택에 관한 특별법 적용</small></td>
+            </tr>
+            <tr>
+              <th>임대기간</th>
+              <td><strong>10년 임대</strong> 후 분양전환</td>
+            </tr>
+            <tr>
+              <th>공급규모</th>
+              <td><strong>총 647세대</strong><br>민간임대 467세대 + 장기전세 180세대</td>
+            </tr>
+            <tr>
+              <th>공급타입</th>
+              <td>49㎡ / 59㎡ / 74㎡</td>
+            </tr>
+            <tr>
+              <th>용도지역</th>
+              <td>준주거지역 변경 예정<br><small style="color:#999">역세권 Shift 사업 적용 (용적률 500%)</small></td>
+            </tr>
+            <tr>
+              <th>청약통장</th>
+              <td><strong style="color:#27ae60">불필요</strong> — 19세 이상 누구나 신청 가능</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="benefit-cards" style="margin-top:32px">
+          <div class="benefit-card">
+            <div class="benefit-card-icon">🏠</div>
+            <div class="benefit-card-title">취득세 없음</div>
+            <div class="benefit-card-desc">임대기간 동안<br>취득세 부담 없음</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-card-icon">📋</div>
+            <div class="benefit-card-title">종부세 없음</div>
+            <div class="benefit-card-desc">보유세 · 종부세<br>부담 없음</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-card-icon">💰</div>
+            <div class="benefit-card-title">건보료 동결</div>
+            <div class="benefit-card-desc">건강보험료<br>상승 없음</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 세대 구성 ==================== -->
+<section class="sec unit-comp-section" id="units">
+  <div class="container">
+    <span class="section-eyebrow">UNIT COMPOSITION</span>
+    <h2 class="section-title">세대 구성</h2>
+    <div class="unit-comp-grid">
+      <div class="comp-item fade-in">
+        <div class="comp-type">TYPE A</div>
+        <div class="comp-sqm">49<span>㎡</span></div>
+        <div class="comp-divider"></div>
+        <div class="comp-supply">전용 49.39㎡ · 공급 68.88㎡<br>계약면적 102.07㎡ (30.88평)</div>
+        <div class="comp-count">84<span>세대</span></div>
+      </div>
+      <div class="comp-item fade-in">
+        <div class="comp-type">TYPE B</div>
+        <div class="comp-sqm">59<span>㎡</span></div>
+        <div class="comp-divider"></div>
+        <div class="comp-supply">전용 59.95㎡ · 공급 84.33㎡<br>계약면적 124.62㎡ (37.70평)</div>
+        <div class="comp-count">390<span>세대</span></div>
+      </div>
+      <div class="comp-item fade-in">
+        <div class="comp-type">TYPE C</div>
+        <div class="comp-sqm">74<span>㎡</span></div>
+        <div class="comp-divider"></div>
+        <div class="comp-supply">전용 74.94㎡ · 공급 104.29㎡<br>계약면적 154.66㎡ (46.79평)</div>
+        <div class="comp-count">173<span>세대</span></div>
+      </div>
+      <div class="comp-total-row">
+        <span class="comp-total-label">TOTAL UNITS</span>
+        <span class="comp-total-val">647<span>세대</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 광역입지 ==================== -->
+<section class="sec location-section" id="location">
+  <div class="container">
+    <span class="section-eyebrow">REGIONAL LOCATION</span>
+    <h2 class="section-title fade-in">광역 입지</h2>
+    <p class="section-desc fade-in">서울 마포구 대흥동, 이대역 역세권에 위치한 최우수 입지</p>
+
+    <div class="loc-img-wrap fade-in">
+      <img src="assets/images/세부입지_map.jpg" alt="광역 입지 교통지도 — 이대역 마포 프론티어" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 세부입지 ==================== -->
+<section class="sec detail-loc-section" id="detail-location">
+  <div class="container">
+    <span class="section-eyebrow">DETAILED LOCATION</span>
+    <h2 class="section-title fade-in">세부 입지</h2>
+    <div class="fade-in">
+      <img src="assets/images/광역입지.jpg" alt="세부 입지 — 최고의 위치가 최상의 가치가 되는 곳" class="detail-loc-img" style="width:100%;border-radius:var(--radius);box-shadow:0 8px 32px rgba(0,0,0,.1);" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 단지배치도 ==================== -->
+<section class="sec complex-section" id="complex">
+  <div class="container">
+    <span class="section-eyebrow">COMPLEX LAYOUT</span>
+    <h2 class="section-title fade-in">단지 배치도</h2>
+    <p class="section-desc fade-in">체계적으로 계획된 단지 배치로 쾌적한 주거환경을 제공합니다.</p>
+    <div class="complex-img-wrap fade-in">
+      <img src="assets/images/단지배치도.jpg" alt="단지 배치도" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 단위세대 평면도 ==================== -->
+<section class="sec plan-section" id="plans">
+  <div class="container">
+    <span class="section-eyebrow">UNIT FLOOR PLAN</span>
+    <h2 class="section-title fade-in">단위세대 평면도</h2>
+
+    <div class="plan-tabs" role="tablist">
+      <button class="plan-tab active" role="tab" data-tab="49" aria-selected="true">49㎡ TYPE A</button>
+      <button class="plan-tab" role="tab" data-tab="59" aria-selected="false">59㎡ TYPE B</button>
+      <button class="plan-tab" role="tab" data-tab="74" aria-selected="false">74㎡ TYPE C</button>
+    </div>
+
+    <!-- 49㎡ -->
+    <div class="plan-panel active" id="plan-49">
+      <div class="plan-grid">
+        <div class="plan-img-box fade-in">
+          <img src="assets/images/render_p19.jpg" alt="49㎡ 평면도" loading="lazy">
+        </div>
+        <div class="fade-in">
+          <span class="plan-type-badge">TYPE A</span>
+          <div class="plan-type-name">49㎡</div>
+          <div class="plan-type-eng">14.94 PYEONG</div>
+          <div class="plan-spec-grid">
+            <div class="spec-box">
+              <div class="spec-box-label">전용면적</div>
+              <div class="spec-box-val">49.39<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">주거공용</div>
+              <div class="spec-box-val">19.49<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">공급면적</div>
+              <div class="spec-box-val">68.88<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">계약면적</div>
+              <div class="spec-box-val">102.07<span>㎡</span></div>
+            </div>
+          </div>
+          <div class="plan-supply-info">
+            전체 647세대 중 <strong>84세대</strong> 공급<br>
+            계약면적 기준 <strong>30.88평</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 59㎡ -->
+    <div class="plan-panel" id="plan-59">
+      <div class="plan-grid">
+        <div class="plan-img-box fade-in">
+          <img src="assets/images/render_p20.jpg" alt="59㎡ 평면도" loading="lazy">
+        </div>
+        <div class="fade-in">
+          <span class="plan-type-badge">TYPE B</span>
+          <div class="plan-type-name">59㎡</div>
+          <div class="plan-type-eng">18.13 PYEONG</div>
+          <div class="plan-spec-grid">
+            <div class="spec-box">
+              <div class="spec-box-label">전용면적</div>
+              <div class="spec-box-val">59.95<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">주거공용</div>
+              <div class="spec-box-val">24.38<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">공급면적</div>
+              <div class="spec-box-val">84.33<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">계약면적</div>
+              <div class="spec-box-val">124.62<span>㎡</span></div>
+            </div>
+          </div>
+          <div class="plan-supply-info">
+            전체 647세대 중 <strong>390세대</strong> 공급 (주력 타입)<br>
+            계약면적 기준 <strong>37.70평</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 74㎡ -->
+    <div class="plan-panel" id="plan-74">
+      <div class="plan-grid">
+        <div class="plan-img-box fade-in">
+          <img src="assets/images/render_p21.jpg" alt="74㎡ 평면도" loading="lazy">
+        </div>
+        <div class="fade-in">
+          <span class="plan-type-badge">TYPE C</span>
+          <div class="plan-type-name">74㎡</div>
+          <div class="plan-type-eng">22.67 PYEONG</div>
+          <div class="plan-spec-grid">
+            <div class="spec-box">
+              <div class="spec-box-label">전용면적</div>
+              <div class="spec-box-val">74.94<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">주거공용</div>
+              <div class="spec-box-val">29.35<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">공급면적</div>
+              <div class="spec-box-val">104.29<span>㎡</span></div>
+            </div>
+            <div class="spec-box">
+              <div class="spec-box-label">계약면적</div>
+              <div class="spec-box-val">154.66<span>㎡</span></div>
+            </div>
+          </div>
+          <div class="plan-supply-info">
+            전체 647세대 중 <strong>173세대</strong> 공급<br>
+            계약면적 기준 <strong>46.79평</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ADVANTAGES ==================== -->
+<section class="sec adv-section" id="advantages">
+  <div class="container">
+    <span class="section-eyebrow">WHY FRONTIER</span>
+    <h2 class="section-title">마포 프론티어<br>투자 포인트</h2>
+    <div class="adv-grid">
+      <div class="adv-card fade-in">
+        <div class="adv-num">01</div>
+        <div class="adv-title">청약통장 불필요</div>
+        <div class="adv-desc">만 19세 이상 누구나 신청 가능. 무주택·유주택, 내국인·외국인 모두 지원 가능하여 진입 장벽이 낮습니다.</div>
+      </div>
+      <div class="adv-card fade-in">
+        <div class="adv-num">02</div>
+        <div class="adv-title">세금 3無 혜택</div>
+        <div class="adv-desc">취득세, 종부세, 건강보험료 인상 없음. 임대기간 중 보유세 부담 없이 안정적인 주거 생활이 가능합니다.</div>
+      </div>
+      <div class="adv-card fade-in">
+        <div class="adv-num">03</div>
+        <div class="adv-title">지위권 양도 가능</div>
+        <div class="adv-desc">임대기간 중 언제든지 지위권 양도·양수 가능. 시세 차익 실현 기회를 가질 수 있는 유연한 상품입니다.</div>
+      </div>
+      <div class="adv-card fade-in">
+        <div class="adv-num">04</div>
+        <div class="adv-title">이대역 초역세권</div>
+        <div class="adv-desc">지하철 2호선 이대역 도보 2분. 서부선 경전철(2034년 예정) 개통 시 교통 편의성 및 자산 가치 추가 상승 예상.</div>
+      </div>
+      <div class="adv-card fade-in">
+        <div class="adv-num">05</div>
+        <div class="adv-title">역세권 Shift 사업</div>
+        <div class="adv-desc">서울시 역세권 장기전세 주택사업(Shift) 적용으로 용적률 500% 적용. 체계적이고 고밀도 개발이 가능한 우수 입지.</div>
+      </div>
+      <div class="adv-card fade-in">
+        <div class="adv-num">06</div>
+        <div class="adv-title">주변 개발 호재</div>
+        <div class="adv-desc">성산시영 재건축(4,823세대), 공덕7구역 재개발(703세대) 등 주변 대규모 정비사업으로 지역 가치 동반 상승 기대.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L4 8v14h5v-7h6v7h5V8L12 2z"/></svg>
+          </div>
+          <span class="footer-logo-en">FRONTIER</span>
+        </div>
+        <p class="footer-desc">이대역 마포 프론티어<br>서울특별시 마포구 대흥동 일원<br>장기일반민간임대주택 · 총 647세대</p>
+      </div>
+      <div class="footer-contact">
+        <div>대표번호</div>
+        <div><strong>1666-9032</strong></div>
+        <div style="margin-top:12px">문자상담</div>
+        <div><strong>010-2618-6566</strong></div>
+        <div style="margin-top:12px;font-size:11px;color:rgba(255,255,255,.3)">운영시간: 평일·주말 10:00 ~ 18:00</div>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      본 홈페이지의 모든 내용은 이해를 돕기 위한 것으로, 인허가 과정에서 변경될 수 있습니다.
+      본 자료는 교육 및 안내 목적으로 제작되었으며 실제와 다를 수 있습니다.
+      정확한 사업 내용은 공급 계약서 및 관련 서류를 반드시 확인하시기 바랍니다.
+    </p>
+    <div class="footer-bottom">© 2026 이대역 마포 프론티어 주택 홍보관. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- ==================== MOBILE BOTTOM CTA ==================== -->
+<div class="mobile-cta-bar" role="navigation" aria-label="빠른 연락">
+  <a href="sms:01026186566" class="mobile-cta-btn sms">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h10v2H7zm0-3h10v2H7zm0 6h7v2H7z"/></svg>
+    문자 상담
+  </a>
+  <a href="tel:16669032" class="mobile-cta-btn tel">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    전화 상담
+  </a>
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+/* ── Header scroll ── */
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── Mobile Nav ── */
+const menuBtn = document.getElementById('mobileMenuBtn');
+const mobileNav = document.getElementById('mobileNav');
+const navOverlay = document.getElementById('navOverlay');
+const navClose = document.getElementById('mobileNavClose');
+
+function openNav() {
+  mobileNav.classList.add('open');
+  navOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeNav() {
+  mobileNav.classList.remove('open');
+  navOverlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+menuBtn?.addEventListener('click', openNav);
+navClose?.addEventListener('click', closeNav);
+navOverlay?.addEventListener('click', closeNav);
+document.querySelectorAll('.mobile-nav-link').forEach(a => a.addEventListener('click', closeNav));
+
+/* ── Scroll animation ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+/* ── Plan tabs ── */
+document.querySelectorAll('.plan-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.plan-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    document.querySelectorAll('.plan-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+    const panel = document.getElementById('plan-' + tab.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+/* ── Contact form ── */
+const form = document.getElementById('contactForm');
+const formBox = document.getElementById('formBox');
+const formSuccess = document.getElementById('formSuccess');
+const submitBtn = document.getElementById('submitBtn');
+
+form?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('from_name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  if (!name || !phone) {
+    alert('성함과 연락처는 필수 입력 항목입니다.');
+    return;
+  }
+  submitBtn.disabled = true;
+  submitBtn.textContent = '전송 중...';
+
+  const payload = {
+    from_name: name,
+    phone,
+    unit_type:   document.getElementById('unit_type').value,
+    region:      document.getElementById('region').value,
+    message:     document.getElementById('message').value.trim() || '없음'
+  };
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.success) {
+      formBox.style.display = 'none';
+      formSuccess.style.display = 'block';
+    } else {
+      throw new Error(data.error || '전송 실패');
+    }
+  } catch (err) {
+    alert('전송 중 오류가 발생했습니다.\n전화 상담 1666-9032으로 연락 주세요.\n(' + err.message + ')');
+    submitBtn.disabled = false;
+    submitBtn.textContent = '관심 등록 신청하기';
+  }
+});
+</script>
+</body>
+</html>

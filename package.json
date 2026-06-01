@@ -1,0 +1,8 @@
+{
+  "name": "mapo-frontier",
+  "version": "1.0.0",
+  "description": "이대역 마포 프론티어 랜딩 페이지",
+  "scripts": {
+    "dev": "npx serve -p 3131 ."
+  }
+}
