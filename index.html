@@ -1062,13 +1062,13 @@ form?.addEventListener('submit', async (e) => {
   const payload = {
     from_name: name,
     phone,
-    unit_type:   document.getElementById('unit_type').value,
-    region:      document.getElementById('region').value,
-    message:     document.getElementById('message').value.trim() || '없음'
+    unit_type: document.getElementById('unit_type').value,
+    region:    document.getElementById('region').value,
+    message:   document.getElementById('message').value.trim() || '없음'
   };
 
   try {
-    const res = await fetch('/api/contact', {
+    const res  = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
