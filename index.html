@@ -75,8 +75,13 @@ ul,ol{list-style:none}
 .logo-icon svg{width:22px;height:22px;fill:#fff}
 .logo-text{display:flex;flex-direction:column;line-height:1}
 .logo-en{font-size:15px;font-weight:800;letter-spacing:3px;color:var(--dark)}
-.logo-ko{font-size:9px;letter-spacing:2px;color:var(--red);font-weight:500}
-.logo-station{font-size:9px;background:var(--red);color:#fff;padding:1px 5px;border-radius:2px;letter-spacing:1px;margin-right:2px}
+.logo-ko{font-size:9px;letter-spacing:1px;color:var(--red);font-weight:500;display:flex;align-items:center;gap:4px;flex-wrap:nowrap;white-space:nowrap}
+.logo-station{font-size:9px;background:var(--red);color:#fff;padding:1px 5px;border-radius:2px;letter-spacing:1px;flex-shrink:0}
+@media(max-width:400px){
+  .logo-en{font-size:13px;letter-spacing:2px}
+  .logo-station{display:none}
+  .logo-icon{width:34px;height:34px}
+}
 
 .gnav{display:flex;gap:32px;align-items:center}
 .gnav a{font-size:13px;font-weight:500;color:var(--text-s);letter-spacing:.5px;position:relative;padding-bottom:2px}
@@ -134,11 +139,11 @@ ul,ol{list-style:none}
   color:#fff;
 }
 .hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
+  display:inline-flex;align-items:center;gap:10px;
   background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
   border:1px solid rgba(255,255,255,.2);border-radius:24px;
-  padding:6px 18px;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.85);
-  margin-bottom:28px;
+  padding:10px 28px;font-size:14px;letter-spacing:2px;color:rgba(255,255,255,.95);
+  font-weight:600;margin-bottom:32px;
   opacity:0;animation:fadeUp .8s .3s forwards;
 }
 .hero-badge-dot{width:6px;height:6px;background:var(--red-light);border-radius:50%;animation:pulse 2s infinite}
@@ -182,7 +187,7 @@ ul,ol{list-style:none}
 .hero-btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4)}
 .hero-btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08);transform:translateY(-2px)}
 .hero-scroll{
-  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  position:absolute;bottom:40px;left:0;right:0;
   display:flex;flex-direction:column;align-items:center;gap:10px;
   opacity:0;animation:fadeUp .8s 1.6s forwards;
 }
@@ -197,8 +202,8 @@ ul,ol{list-style:none}
    ============================================= */
 .notice-bar{
   background:var(--red);color:#fff;
-  padding:12px 32px;text-align:center;
-  font-size:12px;letter-spacing:1px;line-height:1.8;
+  padding:16px 32px;text-align:center;
+  font-size:13px;letter-spacing:.5px;line-height:2;
 }
 .notice-bar strong{font-weight:700}
 
@@ -595,7 +600,6 @@ ul,ol{list-style:none}
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-badge"><span class="hero-badge-dot"></span>이대역 역세권 장기일반민간임대주택</div>
-    <em class="hero-eyebrow">마포구 대흥동 · 서울특별시</em>
     <h1 class="hero-title">마포 프론티어<em>FRONTIER</em></h1>
     <p class="hero-sub">서울 핵심 역세권의 새로운 주거 기준</p>
     <div class="hero-tags">
@@ -615,7 +619,9 @@ ul,ol{list-style:none}
 
 <!-- NOTICE BAR -->
 <div class="notice-bar">
-  <strong>주택 홍보관 운영 안내</strong> · 방문 상담 예약 및 문의 <strong>1666-9032</strong> · 평일·주말 10:00 ~ 18:00
+  <strong>주택 홍보관 운영 안내</strong><br>
+  방문 상담 예약 및 문의 <strong>1666-9032</strong><br>
+  평일·주말 10:00 ~ 18:00
 </div>
 
 <!-- ==================== INTEREST FORM ==================== -->
@@ -814,7 +820,7 @@ ul,ol{list-style:none}
     <p class="section-desc fade-in">서울 마포구 대흥동, 이대역 역세권에 위치한 최우수 입지</p>
 
     <div class="loc-img-wrap fade-in">
-      <img src="assets/images/location-detail.jpg" alt="광역 입지 교통지도 — 이대역 마포 프론티어" loading="lazy">
+      <img src="assets/images/map-full.jpg" alt="광역 입지 전체 지도 — 이대역 마포 프론티어" loading="lazy">
     </div>
   </div>
 </section>
@@ -825,7 +831,7 @@ ul,ol{list-style:none}
     <span class="section-eyebrow">DETAILED LOCATION</span>
     <h2 class="section-title fade-in">세부 입지</h2>
     <div class="fade-in">
-      <img src="assets/images/location-regional.jpg" alt="세부 입지 — 최고의 위치가 최상의 가치가 되는 곳" class="detail-loc-img" style="width:100%;border-radius:var(--radius);box-shadow:0 8px 32px rgba(0,0,0,.1);" loading="lazy">
+      <img src="assets/images/location-sub.jpg" alt="세부 입지 — 최고의 위치가 최상의 가치가 되는 곳" class="detail-loc-img" style="width:100%;border-radius:var(--radius);box-shadow:0 8px 32px rgba(0,0,0,.1);" loading="lazy">
     </div>
   </div>
 </section>
@@ -858,7 +864,7 @@ ul,ol{list-style:none}
     <div class="plan-panel active" id="plan-49">
       <div class="plan-grid">
         <div class="plan-img-box fade-in">
-          <img src="assets/images/render_p19.jpg" alt="49㎡ 평면도" loading="lazy">
+          <img src="assets/images/plan-49.jpg" alt="49㎡ 평면도" loading="lazy">
         </div>
         <div class="fade-in">
           <span class="plan-type-badge">TYPE A</span>
@@ -894,7 +900,7 @@ ul,ol{list-style:none}
     <div class="plan-panel" id="plan-59">
       <div class="plan-grid">
         <div class="plan-img-box fade-in">
-          <img src="assets/images/render_p20.jpg" alt="59㎡ 평면도" loading="lazy">
+          <img src="assets/images/plan-59.jpg" alt="59㎡ 평면도" loading="lazy">
         </div>
         <div class="fade-in">
           <span class="plan-type-badge">TYPE B</span>
@@ -930,7 +936,7 @@ ul,ol{list-style:none}
     <div class="plan-panel" id="plan-74">
       <div class="plan-grid">
         <div class="plan-img-box fade-in">
-          <img src="assets/images/render_p21.jpg" alt="74㎡ 평면도" loading="lazy">
+          <img src="assets/images/plan-74.jpg" alt="74㎡ 평면도" loading="lazy">
         </div>
         <div class="fade-in">
           <span class="plan-type-badge">TYPE C</span>
